@@ -1,9 +1,8 @@
-if ("serviceWorker" in navigator) {
-  const showSuccessMessage = () => console.log("[Service Worker] Registered");
-  const showErrorMessage = () => console.log("[Service Worker] Registration failed");
+if('serviceWorker' in navigator){ //nesse if o serviceworker tem q ser minusculo
 
-  navigator.serviceWorker
-    .register("sw.js")
-    .then(showSuccessMessage)
-    .catch(showErrorMessage);
+    const onsuccess = () => console.log('[Service Worker] Success!!');
+    const onerror = () => console.log('[Service Worker] Error!!');
+    onsuccess();
+
+
 }
