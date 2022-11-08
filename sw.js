@@ -1,6 +1,6 @@
 const CACHE_KEY = 'appShell-v1';
 
-const assetsToCache = ["offline.html"];
+const assetsToCache = ["./offline.html"];
 
 async function cacheStaticAssets(){
 
@@ -8,6 +8,27 @@ async function cacheStaticAssets(){
     return cache.addAll(assetsToCache);
 
 }
+
+
+async function networkFirst(request){
+
+    try {
+
+        return await fetch(request);
+
+    } catch (error) {
+
+        
+        console.log('Erro',{error});
+        const cache = await caches.open(CACHE_KEY);
+        return cache.match('offline.html');
+
+    }
+
+}
+
+
+
 
 self.addEventListener('install', event => {
 
@@ -27,8 +48,8 @@ self.addEventListener('activate', event => {
 self.addEventListener("fetch", (event) => {
 
 
-    console.log('[Service Worker] Fetch event worker');
-    event.respondWith(fetch(event.request.url));
-
+    console.log('[Service Worker] Fetch event worker', event.request.url);
+    event.respondWith(networkFirst(event.request));
 
 })
+
