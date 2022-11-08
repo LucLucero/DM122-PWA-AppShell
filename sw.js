@@ -11,3 +11,13 @@ self.addEventListener('activate', event => {
     return self.clients.claim();
 
 })
+
+
+self.addEventListener("fetch", (event) => {
+
+
+    console.log('[Service Worker] Fetching evnt worker');
+    event.respondWidth(fetch(event.request));
+
+
+})
